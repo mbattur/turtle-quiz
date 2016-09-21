@@ -2,14 +2,13 @@
     
     angular
         .module("turtleFacts")
-        .factory("DataService", DataFactory);
+        .factory("DataService", DataService);
         
-        function DataFactory(){
+        function DataService(){
             var dataObj = {
                 turtlesData: turtlesData,
                 quizQuestions: quizQuestions
             };
-            
             return dataObj;
         }
         

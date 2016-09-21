@@ -21,7 +21,7 @@
             </h3>
         </div>
         
-        <div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive">
+        <div ng-controller="listCtrl as list" ng-hide="list.quizMetrics.quizActive || list.quizMetrics.resultsActive">
             <form class="form-inline well well-sm clearfix">
                 <span class="glyphicon glyphicon-search"></span>
                 <input 
@@ -86,16 +86,44 @@
                                         data-dismiss="modal">Close</button>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive">
-        
-        </div>
-        
-    </div>
+
+        <div ng-controller="quizCtrl as quiz" ng-show="quiz.quizMetrics.quizActive"> 
+            <div class="row"><!-- Progress Bar -->
+                <div class="col-xs-8">
+                    <h2>Progress:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn" 
+                                ng-repeat="question in quiz.dataService.quizQuestions"
+                                ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}"
+                                ng-click="quiz.setActiveQuestion($index)">
+                                <span class="glyphicon" ng-class="{'glyphicon-pencil': question.selected !== null,
+                                    'glyphicon-question-sign': question.selected === null}"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <h4>Legend:</h4>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <p>Answered</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                            <p>Unanswered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
