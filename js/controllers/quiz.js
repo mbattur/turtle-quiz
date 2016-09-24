@@ -15,9 +15,10 @@
             vm.questionAnswered = questionAnswered;
             vm.setActiveQuestion = setActiveQuestion;
             vm.selectAnswer = selectAnswer;
+            vm.finaliseAnswers = finaliseAnswers;
             vm.activeQuestion = 0;
             vm.error = false;
-            vm.finalize = false;
+            vm.finalise = false;
             
         var numQuestionsAnswered = 0;
             
@@ -55,7 +56,7 @@
                             }
                         }
                         vm.error = false;
-                        vm.finalize = true;
+                        vm.finalise = true;
                         return;
                     }
                 }
@@ -65,6 +66,15 @@
             
             function selectAnswer(index) {
                 DataService.quizQuestions[vm.activeQuestion].selected = index;
+            }
+            
+            function finaliseAnswers(){
+                vm.finalise = false;
+                numQuestionsAnswered = 0;
+                vm.activeQuestion = 0;
+                quizMetrics.markQuiz();
+                quizMetrics.changeState("quiz", false);
+                quizMetrics.changeState("results", true);
             }
         }
 })();
